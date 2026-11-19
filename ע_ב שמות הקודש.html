@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ע"ב שמות הקודש</title>
+<style>
+:root{--bg:#f6f1e7;--card:#fffaf0;--ink:#2a2118;--mute:#6f6150;--gold:#9a6b12;--line:#e2d6bd;--btn:#2a2118;--btnt:#fffaf0;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14110d;--card:#1f1a13;--ink:#f1e8d6;--mute:#b0a38c;--gold:#e0b04c;--line:#3a3124;--btn:#e0b04c;--btnt:#14110d;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#14110d;--card:#1f1a13;--ink:#f1e8d6;--mute:#b0a38c;--gold:#e0b04c;--line:#3a3124;--btn:#e0b04c;--btnt:#14110d;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Frank Ruhl Libre","David",Georgia,serif;line-height:1.6}
+main{max-width:560px;margin:0 auto;padding:24px 18px 40px}
+h1{text-align:center;font-weight:500;margin:8px 0 4px;font-size:1.7rem}
+.sub{text-align:center;color:var(--mute);margin:0 0 22px}
+.cats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
+.cats button{padding:12px 4px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;font:inherit;font-size:.95rem;cursor:pointer}
+.cats button[aria-pressed="true"]{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold);color:var(--gold)}
+textarea{width:100%;box-sizing:border-box;min-height:70px;padding:10px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);font:inherit;resize:vertical}
+.go{display:block;width:100%;margin-top:12px;padding:14px;border:0;border-radius:10px;background:var(--btn);color:var(--btnt);font:inherit;font-size:1.1rem;cursor:pointer}
+#res{display:none;margin-top:22px;padding:24px 18px;text-align:center;background:var(--card);border:1px solid var(--line);border-radius:14px}
+#nm{font-size:3.4rem;color:var(--gold);letter-spacing:.1em;margin:4px 0}
+#num{color:var(--mute);font-size:.9rem}
+#ang{margin:2px 0 14px;color:var(--mute)}
+#pr{margin:0 0 10px}
+.note{font-size:.82rem;color:var(--mute);text-align:center;margin-top:20px}
+details{margin-top:22px;border-top:1px solid var(--line);padding-top:12px}
+summary{cursor:pointer;color:var(--gold)}
+.all{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:10px;font-size:.95rem;text-align:center}
+.all span{padding:4px;border:1px solid var(--line);border-radius:6px;background:var(--card)}
+</style>
+</head>
+<body>
+<main>
+<h1>ע"ב שמות הקודש</h1>
+<p class="sub">בחר נושא, כתוב את שאלתך, וקבל שם להתבוננות</p>
+<div class="cats" id="cats"></div>
+<textarea id="q" placeholder="כתוב כאן את שאלתך או כוונתך (לא חובה)"></textarea>
+<button class="go" id="go">הוצא שם</button>
+<section id="res" aria-live="polite">
+<div id="num"></div><div id="nm"></div><div id="ang"></div><p id="pr"></p>
+<button class="go" id="again" style="background:transparent;color:var(--gold);border:1px solid var(--gold)">שאלה חדשה</button>
+</section>
+<details><summary>כל ע"ב השמות</summary><div class="all" id="all"></div></details>
+<p class="note">השם נבחר באקראי ונועד להתבוננות וכוונה בלבד. זו אינה נבואה, ייעוץ רפואי, משפטי או כלכלי. בעניינים אלה יש לפנות לאנשי מקצוע, ובעניינים הלכתיים לרב.</p>
+</main>
+<script>
+const N="והו ילי סיט עלם מהש ללה אכא כהת הזי אלד לאו ההע יזל מבה הרי הקם לאו כלי לוו פהל נלך ייי מלה חהו נתה האא ירת שאה ריי אום לכב ושר יחו להח כוק מנד אני חעם רהע ייז ההה מיך וול ילה סאל ערי עשל מיה והו דני החש עמם ננא נית מבה פוי נמם ייל הרח מצר ומב יהה ענו מחי דמב מנק איע חבו ראה יבם היי מום".split(" ");
+const C={
+"זוגיות":"התבונן באהבה, בהקשבה ובנתינה. מה אתה מוכן לתת כדי שהקשר יגדל?",
+"פרנסה והצלחה":"התבונן בשפע ובמעשה. איזה צעד מעשי אחד אתה יכול לעשות היום, ובאיזה אמון אתה נשען?",
+"בריאות":"התבונן בגוף כמתנה ובשלמות הנפש. כוון לרפואה שלמה, ולצד זה פנה לרופא ולטיפול מתאים.",
+"הגנה":"התבונן בתחושת הביטחון והשמירה. מה מפחיד אותך, ובמה אתה בוטח?",
+"חכמה והבנה":"התבונן בצורך להבין ולבחור נכון. איזו שאלה פתוחה מחכה לבהירות?",
+"שלום ושלווה":"התבונן בשקט הפנימי. מה אתה צריך לשחרר כדי להרגיע את הלב?"};
+let cur=Object.keys(C)[0];
+const cats=document.getElementById("cats");
+Object.keys(C).forEach(k=>{const b=document.createElement("button");b.textContent=k;b.setAttribute("aria-pressed",k===cur);b.onclick=()=>{cur=k;[...cats.children].forEach(x=>x.setAttribute("aria-pressed",x===b))};cats.appendChild(b)});
+document.getElementById("all").innerHTML=N.map((n,i)=>`<span title="${i+1}">${n}</span>`).join("");
+const r=()=>{const a=new Uint32Array(1);crypto.getRandomValues(a);return a[0]%72};
+document.getElementById("go").onclick=()=>{
+ const i=r(),n=N[i];
+ document.getElementById("num").textContent="שם מספר "+(i+1)+" · "+cur;
+ document.getElementById("nm").textContent=n;
+ document.getElementById("ang").textContent="צירוף המלאך: "+n+"־אל או "+n+"־יה";
+ document.getElementById("pr").textContent=C[cur];
+ const s=document.getElementById("res");s.style.display="block";s.scrollIntoView({behavior:"smooth"});
+};
+document.getElementById("again").onclick=()=>{document.getElementById("res").style.display="none";document.getElementById("q").value="";window.scrollTo({top:0,behavior:"smooth"})};
+</script>
+</body>
+</html>
